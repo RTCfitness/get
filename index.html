@@ -1,6 +1,6 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Get RTC Fitness - Free on iPhone and Android</title>
-<meta name="description" content="Training, meals and progress in one app. Free on the App Store and Google Play.">
+<title>Get RTC Fitness - Free on Android, iPhone coming soon</title>
+<meta name="description" content="Training, meals and progress in one app. Free on Google Play. iPhone coming soon.">
 <link rel="icon" href="icon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;800;900&display=swap" rel="stylesheet">
 <style>
 :root{--o:#F78C26;--r:#C84040}*{box-sizing:border-box}
@@ -43,12 +43,13 @@ h1{margin:0;font-weight:900;font-size:clamp(40px,9vw,76px);line-height:.98;lette
 /* Links carry the traffic source so the stores can report it.
    Bio link examples:  /go/?s=ig   /go/?s=tt   /go/?s=yt   /go/?s=fb   ads: ?s=meta&v=RTC-V01-HOOK or ?s=google
    Fill APPLE_PT (App Store Connect provider token) to switch on iPhone campaign reporting. */
-var APPLE_ID="6818820831",PKG="com.richtrimcoaching.rtc",APPLE_PT="";
+var IOS_LIVE=false,APPLE_ID="6818820831",PKG="com.richtrimcoaching.rtc",APPLE_PT="";
 var q=new URLSearchParams(location.search),s=(q.get("s")||"bio").replace(/[^a-z0-9_-]/gi,"").slice(0,20),v=(q.get("v")||"").replace(/[^A-Za-z0-9_-]/g,"").slice(0,40),paid=/^(meta|google)$/.test(s);
 var utm="utm_source="+s+"&utm_medium="+(paid?"paid":"organic")+"&utm_campaign=rtc-oct26"+(v?"&utm_content="+v:"");
 var play="https://play.google.com/store/apps/details?id="+PKG+"&referrer="+encodeURIComponent(utm);
 var ios="https://apps.apple.com/app/id"+APPLE_ID+(APPLE_PT?"?pt="+APPLE_PT+"&ct="+encodeURIComponent(s+(v?"_"+v:"")):"");
 document.getElementById("and").href=play;document.getElementById("ios").href=ios;
+if(!IOS_LIVE){var ib=document.getElementById("ios");ib.removeAttribute("href");ib.setAttribute("aria-disabled","true");ib.style.opacity=".6";ib.style.cursor="default";ib.addEventListener("click",function(e){e.preventDefault()});ib.querySelector("small").textContent="Coming soon on the";ib.querySelector(".os").textContent="COMING SOON"}
 var ua=navigator.userAgent,isI=/iPhone|iPad|iPod/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1),isA=/Android/.test(ua);
-var r=document.getElementById(isI?"ios":isA?"and":"");if(r){r.classList.add("rec");r.querySelector(".os").textContent="FOR YOUR PHONE";r.parentNode.insertBefore(r,r.parentNode.firstChild)}
+var r=document.getElementById(isI&&IOS_LIVE?"ios":isA?"and":"");if(r){r.classList.add("rec");r.querySelector(".os").textContent="FOR YOUR PHONE";r.parentNode.insertBefore(r,r.parentNode.firstChild)}
 </script></body></html>
