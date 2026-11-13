@@ -41,6 +41,7 @@ gtag("js",new Date());gtag("config","G-Q0ZN3E33C7",{client_storage:"none",client
 <div class="btns">
 <a class="btn" id="and" href="#"><svg viewBox="0 0 512 512" aria-hidden="true"><path fill="#00D7FE" d="M48 59.5v393c0 7 4 13 10 16.2L275 256z"/><path fill="#00F076" d="M333 313.9L275 256l58-57.9L82 56c-6-3.3-13-3.6-19.5-.5z" transform="translate(0 0)"/><path fill="#FF3A44" d="M333 198.1L275 256l58 57.9 112-63c11-6.3 11-18.9 0-25.2z" transform="translate(0 0)"/><path fill="#FFD500" d="M275 256L58.5 468.7c6.3 3.2 13.7 2.8 20-1.2l254.5-153.6z"/></svg><span><small>Get it on</small><strong>Google Play</strong></span><span class="os">ANDROID</span></a>
 <a class="btn" id="ios" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg><span><small>Download on the</small><strong>App Store</strong></span><span class="os">IPHONE</span></a>
+<a class="btn" id="ig" href="https://www.instagram.com/prodadbod/" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="igg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FEDA75"/><stop offset=".35" stop-color="#FA7E1E"/><stop offset=".6" stop-color="#D62976"/><stop offset="1" stop-color="#4F5BD5"/></linearGradient></defs><rect x="2" y="2" width="20" height="20" rx="6" fill="url(#igg)"/><rect x="6.5" y="6.5" width="11" height="11" rx="5.5" fill="none" stroke="#fff" stroke-width="1.8"/><circle cx="17.3" cy="6.7" r="1.2" fill="#fff"/></svg><span><small>On iPhone? Launch news first on</small><strong>@prodadbod</strong></span><span class="os">FOLLOW</span></a>
 </div>
 <p class="trust">171+ workouts · 984 meals · Free to start</p>
 </section>
@@ -57,7 +58,8 @@ var ios="https://apps.apple.com/app/id"+APPLE_ID+(APPLE_PT?"?pt="+APPLE_PT+"&ct=
 document.getElementById("and").href=play;document.getElementById("ios").href=ios;
 if(!IOS_LIVE){var ib=document.getElementById("ios");ib.removeAttribute("href");ib.setAttribute("aria-disabled","true");ib.style.opacity=".6";ib.style.cursor="default";ib.addEventListener("click",function(e){e.preventDefault()});ib.querySelector("small").textContent="Coming soon on the";ib.querySelector(".os").textContent="COMING SOON"}
 var ua=navigator.userAgent,isI=/iPhone|iPad|iPod/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1),isA=/Android/.test(ua);
-var r=document.getElementById(isI&&IOS_LIVE?"ios":isA?"and":"");if(r){r.classList.add("rec");r.querySelector(".os").textContent="FOR YOUR PHONE";r.parentNode.insertBefore(r,r.parentNode.firstChild)}
+var igb=document.getElementById("ig");if(IOS_LIVE){igb.parentNode.removeChild(igb)}
+var r=document.getElementById(isI?(IOS_LIVE?"ios":"ig"):isA?"and":"");if(r){r.classList.add("rec");if(r.id!=="ig")r.querySelector(".os").textContent="FOR YOUR PHONE";r.parentNode.insertBefore(r,r.parentNode.firstChild)}
 
 /* Tracking: one "get_visit_<phone>" per visit, one "get_tap_<phone>" per button tap (events appear in GA4 > Reports > Engagement > Events) */
 var dev=isI?"iphone":isA?"android":"other";
@@ -67,4 +69,5 @@ function tapped(e,name){var a=e.currentTarget,h=a.getAttribute("href");var gone=
  gtag("event",name,{src:s,link_source:s,phone:dev,transport_type:"beacon",event_callback:go})}
 document.getElementById("and").addEventListener("click",function(e){tapped(e,"get_tap_android")});
 document.getElementById("ios").addEventListener("click",function(e){tapped(e,IOS_LIVE?"get_tap_iphone":"get_tap_iphone_soon")});
+if(!IOS_LIVE)igb.addEventListener("click",function(e){tapped(e,"get_tap_iphone_follow")});
 </script></body></html>
