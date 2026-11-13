@@ -25,7 +25,13 @@ h1{margin:0;font-weight:900;font-size:clamp(40px,9vw,76px);line-height:.98;lette
 .trust{margin-top:16px;font-size:13px;color:#a9adb3}
 .phone{display:none}.phone img{width:260px;border-radius:34px;box-shadow:0 30px 70px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.08)}
 @media(min-width:860px){.w{grid-template-columns:1.15fr .85fr;text-align:left;align-items:center;min-height:100vh;gap:40px}.brand{justify-content:flex-start}.btns{margin:0}.phone{display:block}}
-</style></head><body><div class="bg"></div>
+</style><script async src="https://www.googletagmanager.com/gtag/js?id=G-Q0ZN3E33C7"></script>
+<script>
+/* Cookieless visit counter (GA4, no cookies or device storage, random id per visit) - counts Android vs iPhone visits and taps */
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}
+gtag("js",new Date());gtag("config","G-Q0ZN3E33C7",{client_storage:"none",client_id:String(Math.floor(Math.random()*2147483647))+"."+Math.floor(Date.now()/1000),send_page_view:false,allow_google_signals:false,allow_ad_personalization_signals:false});
+</script>
+</head><body><div class="bg"></div>
 <main class="w"><section>
 <div class="brand"><img src="icon.png" alt="RTC Fitness icon"><b>RTC FITNESS</b></div>
 <h1 style="margin-top:22px">Your goal.<span>Your plan.</span></h1>
@@ -52,4 +58,13 @@ document.getElementById("and").href=play;document.getElementById("ios").href=ios
 if(!IOS_LIVE){var ib=document.getElementById("ios");ib.removeAttribute("href");ib.setAttribute("aria-disabled","true");ib.style.opacity=".6";ib.style.cursor="default";ib.addEventListener("click",function(e){e.preventDefault()});ib.querySelector("small").textContent="Coming soon on the";ib.querySelector(".os").textContent="COMING SOON"}
 var ua=navigator.userAgent,isI=/iPhone|iPad|iPod/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1),isA=/Android/.test(ua);
 var r=document.getElementById(isI&&IOS_LIVE?"ios":isA?"and":"");if(r){r.classList.add("rec");r.querySelector(".os").textContent="FOR YOUR PHONE";r.parentNode.insertBefore(r,r.parentNode.firstChild)}
+
+/* Tracking: one "get_visit_<phone>" per visit, one "get_tap_<phone>" per button tap (events appear in GA4 > Reports > Engagement > Events) */
+var dev=isI?"iphone":isA?"android":"other";
+gtag("event","get_visit_"+dev,{src:s,link_source:s});
+function tapped(e,name){var a=e.currentTarget,h=a.getAttribute("href");var gone=false,go=function(){if(!gone&&h&&h!=="#"){gone=true;location.href=h}};
+ if(h&&h!=="#"){e.preventDefault();setTimeout(go,400)}
+ gtag("event",name,{src:s,link_source:s,phone:dev,transport_type:"beacon",event_callback:go})}
+document.getElementById("and").addEventListener("click",function(e){tapped(e,"get_tap_android")});
+document.getElementById("ios").addEventListener("click",function(e){tapped(e,IOS_LIVE?"get_tap_iphone":"get_tap_iphone_soon")});
 </script></body></html>
